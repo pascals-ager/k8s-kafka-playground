@@ -1,0 +1,15 @@
+apiVersion: "kafka.strimzi.io/v1alpha1"
+kind: "KafkaConnector"
+metadata:
+  name: "debezium-orders-connector"
+  labels:
+    strimzi.io/cluster: debezium-mongo-kafka-connect-cluster
+spec:
+  class: io.debezium.connector.mongodb.MongoDbConnector
+  tasksMax: 1
+  config:
+    mongodb.hosts: "rs/mongodb-release-headless.mongodb.svc.cluster.local:27017"
+    mongodb.user: "${file:/opt/kafka/external-configuration/connector-config/mongo-credentials.properties:mongo_username}"
+    mongodb.password: "${file:/opt/kafka/external-configuration/connector-config/mongo-credentials.properties:mongo_password}"
+    mongodb.name: "orders"
+    database.whitelist: "test"

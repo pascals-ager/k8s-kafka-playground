@@ -1,0 +1,1 @@
+{"id":"ord2354","version":"2","createdAt":"2020-03-20T23:44:05.396+01:00","lastModifiedAt":"2020-03-20T23:44:05.396+01:00","orderNumber":"2345","customerId":"cust456","country":"DE","orderState":"Open","InventoryMode":"TrackOnly"}

@@ -1,0 +1,20 @@
+apiVersion: "kafka.strimzi.io/v1alpha1"
+kind: "KafkaConnector"
+metadata:
+  name: "mongo-orders-connector"
+  labels:
+    strimzi.io/cluster: mongo-kafka-connect-cluster
+spec:
+  class: com.mongodb.kafka.connect.MongoSourceConnector
+  tasksMax: 1
+  config:
+    connection.uri: "mongodb://test:test@mongodb-release-primary-0.mongodb-release-headless.mongodb.svc.cluster.local:27017,mongodb-release-secondary-0.mongodb-release-headless.mongodb.svc.cluster.local:27017,mongodb-release-arbiter-0.mongodb-release-headless.mongodb.svc.cluster.local:27017/?authSource=test&replicaSet=rs0"
+    topic.prefix: "mongok"
+    database: "test"
+    collection: "orders"
+    key.converter: org.apache.kafka.connect.json.JsonConverter
+    key.converter.schemas.enable: false
+    value.converter: org.apache.kafka.connect.json.JsonConverter
+    value.converter.schemas.enable: false
+    pipeline: "[{\"$match\":{\"$or\":[{\"operationType\":\"update\"},{\"operationType\":\"insert\"},{\"operationType\":\"delete\"}]}}]"
+    change.stream.full.document	: "updateLookup"

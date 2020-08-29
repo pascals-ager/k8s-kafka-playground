@@ -1,0 +1,8 @@
+*.DS_Store
+
+
+**/monixApplication/target
+**/monixApplication/project/target
+**/monixApplication/project/project
+**/monixApplication/.idea
+.idea/

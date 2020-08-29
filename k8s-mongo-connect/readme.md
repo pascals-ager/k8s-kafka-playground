@@ -1,0 +1,40 @@
+
+The purpose of k8s-dz-mongo and k8s-dz-mongo-connector is to deploy a `KafkaConnect` cluster with `Mongo Change Streams` plugins and `KafkaConnector` for mongo collection respectively.
+
+1. Build a docker image for the `KafkaConnect`:  
+
+	`eval $(minikube docker-env)`
+	`docker build . -t mongo-connect:0.1`
+
+2. Create `secret` from file containing `mongo_username` and `mongo_password` in kafka namespace:
+  
+	`kubectl -n kafka create secret generic mongo-credentials --from-file=mongo-credentials.properties`
+
+3. To get the root password for dev:
+	```
+	kubectl get secret --namespace mongodb mongodb-release -o jsonpath="{.data.mongodb-root-password}" | base64 --decode
+	```
+
+4. Create `KafkaConnect` cluster with 1 replica:
+	```
+	kubectl -n kafka apply -f mongo-connect.yaml
+	kafkaconnect.kafka.strimzi.io/mongo-kafka-connect-cluster created
+
+	kubectl -n kafka get kafkaconnect
+	NAME DESIRED REPLICAS
+	mongo-kafka-connect-cluster 1
+
+	kubectl -n kafka get pods
+	NAME READY STATUS RESTARTS AGE
+	mongo-kafka-connect-cluster-connect-7bcbc6bb7-4h8wt 0/1 Running 0 20s
+	```
+
+5. Create a specific `KafkaConnector` for `orders` collection in `test` database:
+  
+
+	```
+	kubectl -n kafka apply -f ../k8s-mongo-connector/mongo-connector.yaml
+	kubectl -n kafka get kafkaconnector
+	NAME AGE
+	mongo-orders-connector 39s
+	```
