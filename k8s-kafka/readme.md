@@ -1,11 +1,11 @@
 
 The purpose of k8s-kafka is to deploy Apache Kafka using `strimzi` operator for evaluation.
 
-1. If working with minikube, ignore this step. Set context for the gcloud cluster created in `/gcloud-cluster` directory.
+1. If working with minikube, ignore this step. Set context for the gcloud cluster created in `/gcloud-dns` directory.
 
 ```shell
 kubectl config current-context
-gke_ct-data-analytics-staging_europe-west1-d_ct-da-staging
+gke_pg-data-staging_europe-west1-d_pg-data-staging
 ```
 
 2. Add strimzi to the helm repo:
@@ -62,16 +62,16 @@ kafka-cluster-zookeeper-nodes            ClusterIP      None           <none>   
 ```shell
 gcloud dns record-sets list --zone=$DNS_MANAGED_ZONE
 NAME                                              TYPE  TTL    DATA
-external.da.ct.com.                      NS    21600  ns-cloud-d1.googledomains.com.,ns-cloud-d2.googledomains.com.,ns-cloud-d3.googledomains.com.,ns-cloud-d4.googledomains.com.
-external.da.ct.com.                      SOA   21600  ns-cloud-d1.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 259200 300
-kafka-bootstrap-stg.external.da.ct.com.  A     60     10.132.0.34
-kafka-bootstrap-stg.external.da.ct.com.  TXT   300    "heritage=external-dns,external-dns/owner=da-user,external-dns/resource=service/kafka/kafka-cluster-kafka-external-bootstrap"
-kafka-broker-0-stg.external.da.ct.com.   A     60     10.132.0.37
-kafka-broker-0-stg.external.da.ct.com.   TXT   300    "heritage=external-dns,external-dns/owner=da-user,external-dns/resource=service/kafka/kafka-cluster-kafka-0"
-kafka-broker-1-stg.external.da.ct.com.   A     60     10.132.0.35
-kafka-broker-1-stg.external.da.ct.com.   TXT   300    "heritage=external-dns,external-dns/owner=da-user,external-dns/resource=service/kafka/kafka-cluster-kafka-1"
-kafka-broker-2-stg.external.da.ct.com.   A     60     10.132.0.36
-kafka-broker-2-stg.external.da.ct.com.   TXT   300    "heritage=external-dns,external-dns/owner=da-user,external-dns/resource=service/kafka/kafka-cluster-kafka-2"
+external.data.pg.com.                      NS    21600  ns-cloud-d1.googledomains.com.,ns-cloud-d2.googledomains.com.,ns-cloud-d3.googledomains.com.,ns-cloud-d4.googledomains.com.
+external.data.pg.com.                      SOA   21600  ns-cloud-d1.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 259200 300
+kafka-bootstrap-stg.external.data.pg.com.  A     60     10.132.0.34
+kafka-bootstrap-stg.external.data.pg.com.  TXT   300    "heritage=external-dns,external-dns/owner=pg-user,external-dns/resource=service/kafka/kafka-cluster-kafka-external-bootstrap"
+kafka-broker-0-stg.external.data.pg.com.   A     60     10.132.0.37
+kafka-broker-0-stg.external.data.pg.com.   TXT   300    "heritage=external-dns,external-dns/owner=pg-user,external-dns/resource=service/kafka/kafka-cluster-kafka-0"
+kafka-broker-1-stg.external.data.pg.com.   A     60     10.132.0.35
+kafka-broker-1-stg.external.data.pg.com.   TXT   300    "heritage=external-dns,external-dns/owner=pg-user,external-dns/resource=service/kafka/kafka-cluster-kafka-1"
+kafka-broker-2-stg.external.data.pg.com.   A     60     10.132.0.36
+kafka-broker-2-stg.external.data.pg.com.   TXT   300    "heritage=external-dns,external-dns/owner=pg-user,external-dns/resource=service/kafka/kafka-cluster-kafka-2"
 ```
 
 Note: Simply toggle `tls: true` on line 24 of `kafka-staging.yaml` to enable `tls` for external clients. Doing so implies that external clients would require tls credentials to access the cluster.
