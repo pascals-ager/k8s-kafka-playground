@@ -1,1 +1,0 @@
-["sbt.Task[scala.collection.immutable.Map[java.lang.String, scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]]",{"2.12.10":{"hashes":[["/Users/anagappa/k8s-data-playground/connector/project/Dependencies.scala","2a3dfb5bb21238b57e19d4e26df7690848b7b4be"]],"lastModifiedTimes":[]}}]

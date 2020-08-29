@@ -2,7 +2,7 @@
 The repository tracks the development of a minikube CDC data playground.
 
 The following components are evaluated:
-1. `MongoDB:4.2` to model our production databases. (Manifests in `/k8s-mongo`)
+1. `MongoDB:4.2`  (Manifests in `/k8s-mongo`)
 2. `Apache Kafka` via [`strimzi-kafka-operator:v0.17.0`](https://github.com/strimzi/strimzi-kafka-operator/tree/0.17.0/helm-charts/strimzi-kafka-operator) as messaging backbone. (Manifests in `/k8s-kafka`)
 3. [`Debezium MongoDB Kafka Connector`](https://debezium.io/documentation/reference/1.1/connectors/mongodb.html) to CDC Mongo order collections to Kafka topics. (Deprecated, since we have the choice of using the official connector)
 4. [`Official MongoDB Kafka Connector`](https://docs.mongodb.com/kafka-connector/v1.0/kafka-installation/) to CDC Mongo order collections to Kafka topics. (Manifests available in `/k8s-mongo-connect` and `/k8s-mongo-connector`. Deploy the connect cluster before deploying the individual connectors.)
